@@ -315,8 +315,8 @@ Democratic, -1 if Republican, 0 otherwise.\footnote{\(I\) serves two
 real growth rate of GDP per capita for the last three quarters of the
 election year. In contrast to \(G\), a ``short horizon'' variable, \(P\)
 and \(Z\) represent the whole term of the administration and are longer
-term variables. \(P\) has been modified to represent the absolute value
-of the inflation rate for the first fifteen quarters of the current
+term variables. \(P\) represents the absolute value of the growth rate
+of the GDP deflator for the first fifteen quarters of the current
 administration. \(Z\), the ``good news variable'', is the number of
 quarters out of the first fifteen of the current administration where
 the growth rate of real GDP is greater than 3.2 percent. Fair notes in
@@ -332,7 +332,7 @@ in the White House for one term; \(1\times I\) if current party has held
 office for two terms; \((1+k) \times I\) for three terms;
 \((1+2k)\times I\) for four terms; and so on, where k is a chosen value
 of 0.25). \(WAR\) is 1 for the election years during and immediately
-following a U.S. war (1944 and 1948) and 0 otherwise.
+following a U.S. war (1920, 1944 and 1948) and 0 otherwise.
 
 In forecasts calculated prior to 1996, the original GDP data are
 presented in a Laspeyres index, which tended to overstate the effect of
@@ -733,8 +733,8 @@ yield the best results.
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
-A key restriction to Fair's model resides in the incumbent variable
-(\(I\)). When interpreting the interaction coefficients in front of
+The incumbent variable (\(I\)) in Fair's model imposes an equality
+constraint. When interpreting the interaction coefficients in front of
 \(G\), \(P\), and \(Z\), an assumption is made that the effect of a one
 unit change in these variables is identical for when \(I\) equals \(1\)
 or \(-1\). Or, a change in economic conditions has the same effect on
@@ -750,6 +750,8 @@ office and \(0\) when a Republican president is in office. The split
 allows for two sets of coefficients to be analyzed: one when a Democrat
 is in office and one when a Republican is in office. Below are the
 coefficients and Variation Inflation Factors.
+
+\[V_t = \alpha_1 + \alpha_2 G_t\times DemI_t + \alpha_3 P_t\times DemI_t + \alpha_4 Z_t\times DemI_t + \alpha_5 {DPER_t} + \alpha_6 {DUR_t} +\alpha_7 DemI_t + \alpha_8 {WAR_t} + \alpha_9 G_t + \alpha_{10} P_t + \alpha_{11} Z_t + \mu_t\]
 
 \rowcolors{2}{gray!6}{white}
 \begin{table}[!h]
@@ -806,17 +808,44 @@ DemI:Z & 10.320\\
 \end{table}
 \rowcolors{2}{white}{white}
 
+The ``Split Incumbent'' model brings party-specific insights on the
+effect economic factors have on voter preferences. The adj-\(R^2\) for
+Fair's equal effect model is \(0.833\) (Table 12) compared to our split
+incumbent model's adj-\(R^2\) value of \(0.815\) (Table 13). The similar
+strength of the models show that splitting the incumbent interaction
+term does not adversely affect the significance of the model.
+
+Our model brings back the \(G\), \(P\), and \(Z\) independent variables
+that Fair removed. In the Split Incumbent model, the coefficients in
+front of these non-interacted terms indicate the effect of a one unit
+change in the economic condition has on the democratic share of votes
+when a Republican is in office. The coefficients are then changed by the
+interaction term when a Democratic president is in office.
+
+If Fair's model is correct, we are to expect equal but opposite
+coefficients for when Republicans or Democrats are in office. However,
+the economic variable \(P\) has significantly different effects on voter
+behavior depending on who is in office. When a Republican is in office,
+a one percent increase in the absolute value of the growth rate of the
+GDP deflator increases the Democratic share of the two-party vote by
+\(0.006\) percent. When a Democrat is in office, a one percent increase
+in the absolute value of the growth rate of the GDP deflator decreases
+the Democratic share by \(0.013\). With such a significant difference of
+effects, the Split Incumbent model illuminates a possible flaw within
+Fair's model.
+
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
 Many traditional journalists conduct revisionist history when talking
 about how an outcome happened. On the flip side, data journalism and
 election forecasting disrupt the traditional outlets of political media.
-These models circumvent the politcal hype surrounding election
+These models circumvent the political hype surrounding election
 predictions and instead focus on concrete economic and politcal data.
-Often, the correct models are praised higher than the models with the
-most confidence. Correctness is not always linearly correlated with
-confidence, and there certainly is a bit of luck involved.
+Often, correcteness is praised higher than model confidence. Regardless
+of how well specified the model is, an incorrect forecast is still an
+incorrect forecast. Traditional media does not care about specificiation
+bias --- they care about who will win the Presidency, and that's it.
 
 Problems often arise in interpretations of these models. These forecasts
 and model predictions are representations of uncertainty. To the
@@ -829,10 +858,9 @@ likely. This paper brings a scrutinizing eye to one of the most accurate
 election equations: the Fair model. Through trying find common errors in
 time series analysis (including autocorrelation and heteroskedasticity),
 we explored different possible weaknesses in Fair's model in the
-explaining the confidence in the popular model. Many of our attempts
-came up fruitless. Even when run through a gauntlet of specification
-tests, the Fair model remains as the most confident and accurate
-estimation.
+explaining the accuracy of the popular model. Many of our attempts came
+up fruitless. Even when run through a gauntlet of specification tests,
+the Fair model remains robust.
 
 The forecast section of this paper provides insight on how the Fair
 model can be used to give preliminary estimates for upcoming elections.
