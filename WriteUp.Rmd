@@ -87,6 +87,17 @@ WorkSet$VP <- (WorkSet$VP / 100)
 WorkSet$actualVP <- (WorkSet$actualVP / 100)
 
 explore_data <- WorkSet[ ,c("Year", "actualVP", "I", "DPER", "DUR", "WAR", "G", "P", "Z")]
+
+I_Recode <- explore_data
+I_Recode$DemI <- NA
+I_Recode$RepI <- NA
+I_Recode$DemI[I_Recode$I == "1"] <- 1
+I_Recode$DemI[I_Recode$I != "1"] <- 0
+I_Recode$RepI[I_Recode$I == "-1"] <- 1
+I_Recode$RepI[I_Recode$I != "-1"] <- 0
+
+
+model_DemI <- lm(actualVP ~ DemI + DPER + DUR + WAR + G*DemI + P*DemI + Z*DemI, data = I_Recode)
 ```
 
 # Introduction
@@ -290,6 +301,34 @@ Other popular general election models (like the polls-plus, polls-only and now-c
 
 [^3]: "The idea behind an election forecast like FiveThirtyEight’s is to take polls ('Clinton is ahead by 3 points') and transform them into probabilities ('She has a 70 percent chance of winning')" [@silver_users_2016].
 
+# Discussion
+
+words words words
+
+```{r Dem_Coeff, echo=FALSE, message=FALSE, warning=FALSE}
+kable(tidy(model_DemI),
+      booktabs = T,
+      digits = 3,
+      format = "latex",
+      caption = "Split Incumbent Coefficents"
+      ) %>% 
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+```{r Dem_Vif, echo=FALSE, message=FALSE, warning=FALSE}
+Dem_vif <- tidy(vif(model_DemI))
+kable(Dem_vif, 
+    booktabs = T,  
+    format = "latex",
+    digits = 3,
+    caption="Variance Inflation Factors for Split Incumbent",
+    col.names=c("regressor","VIF")) %>% 
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+words words words
+
+
 # Conclusion
 Many traditional journalists conduct revisionist history when talking about how an outcome happened. On the flip side, data journalism and election forecasting disrupt the traditional outlets of political media. These models circumvent the politcal hype surrounding election predictions and instead focus on concrete economic and politcal data. Often, the correct models are praised higher than the models with the most confidence. Correctness is not always linearly correlated with confidence, and there certainly is a bit of luck involved. 
 
@@ -301,9 +340,10 @@ The forecast section of this paper provides insight on how the Fair model can be
 \clearpage
 # Appendix A --- Regression Results
 ```{r RegTables, message=FALSE, warning=FALSE}
-#TABLE SOMEWHERE WITH REGRESSIONS
+# TABLE SOMEWHERE WITH REGRESSIONS
 # simple_model <- lm(actualVP ~ I + DPER + DUR + WAR + G + P + Z, data = explore_data )
 # simple_model_2 <- lm(actualVP ~ I + DPER + DUR + WAR + G*I + P*I + Z*I , data = explore_data )
+# simple_model_4 <- lm(actualVP ~ I + DPER + DUR + G:I + P:I + Z:I + WAR, data = explore_data )
 # simple_model_3 <- lm(actualVP ~ I + DPER + DUR + G:I + P:I + Z:I , data = explore_data )
 # 
 # stargazer(simple_model, simple_model_2, simple_model_Fair, simple_model_3,
@@ -369,6 +409,73 @@ F Statistic & \multicolumn{1}{c}{1.295 (df = 7; 17)} & \multicolumn{1}{c}{11.608
 \textit{Notes:} & \multicolumn{4}{l}{$^{***}$Significant at the 1 percent level.} \\ 
  & \multicolumn{4}{l}{$^{**}$Significant at the 5 percent level.} \\ 
  & \multicolumn{4}{l}{$^{*}$Significant at the 10 percent level.} \\ 
+\end{tabular} 
+\end{table} 
+
+```{r RegTables_Split, message=FALSE, warning=FALSE}
+# model_DemI <- lm(actualVP ~ DemI + DPER + DUR + WAR + G*DemI + P*DemI + Z*DemI, data = I_Recode)
+# 
+# stargazer(model_DemI,
+#           title = "Regression Results",
+#           column.labels=c("Split Incumbent"),
+#           type = "latex",
+#           digits = 3,
+#           align=TRUE,
+#           style = "aer",
+#           header = FALSE
+#           )
+```
+\begin{table}[!htbp] \centering 
+  \caption{Regression Results} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+\\[-1.8ex] & \multicolumn{1}{c}{actualVP} \\ 
+ & \multicolumn{1}{c}{Split Incumbent} \\ 
+\hline \\[-1.8ex] 
+ DemI & -0.041 \\ 
+  & (0.057) \\ 
+  & \\ 
+ DPER & 0.047^{**} \\ 
+  & (0.019) \\ 
+  & \\ 
+ DUR & -0.028 \\ 
+  & (0.016) \\ 
+  & \\ 
+ WAR & 0.035 \\ 
+  & (0.039) \\ 
+  & \\ 
+ G & -0.008^{***} \\ 
+  & (0.002) \\ 
+  & \\ 
+ P & 0.006 \\ 
+  & (0.005) \\ 
+  & \\ 
+ Z & -0.007^{*} \\ 
+  & (0.004) \\ 
+  & \\ 
+ DemI:G & 0.014^{***} \\ 
+  & (0.003) \\ 
+  & \\ 
+ DemI:P & -0.019^{**} \\ 
+  & (0.007) \\ 
+  & \\ 
+ DemI:Z & 0.016^{**} \\ 
+  & (0.006) \\ 
+  & \\ 
+ Constant & 0.494^{***} \\ 
+  & (0.033) \\ 
+  & \\ 
+Observations & \multicolumn{1}{c}{25} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.892} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.815} \\ 
+Residual Std. Error & \multicolumn{1}{c}{0.030 (df = 14)} \\ 
+F Statistic & \multicolumn{1}{c}{11.608$^{***}$ (df = 10; 14)} \\ 
+\hline \\[-1.8ex] 
+\textit{Notes:} & \multicolumn{1}{l}{$^{***}$Significant at the 1 percent level.} \\ 
+ & \multicolumn{1}{l}{$^{**}$Significant at the 5 percent level.} \\ 
+ & \multicolumn{1}{l}{$^{*}$Significant at the 10 percent level.} \\ 
 \end{tabular} 
 \end{table} 
 

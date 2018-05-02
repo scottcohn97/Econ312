@@ -1,0 +1,6 @@
+data	ModelData	read_excel	D_Outcome	WorkSet	names	inner_join	data.frame	lapply	as.numeric	as.character	x	VP	actualVP	explore_data	c	I_Recode	DemI	RepI	I
+unnamed-chunk-1	model_DemI	lm	actualVP	DemI	DPER	DUR	WAR	G	P	Z	I_Recode	fair_model	I	explore_data
+unnamed-chunk-2	summary	model_DemI	fair_model
+unnamed-chunk-3	vif	model_DemI
+unnamed-chunk-4	bptest	model_DemI
+unnamed-chunk-5	dwtest	model_DemI

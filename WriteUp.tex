@@ -82,7 +82,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{April 28, 2018}
+  \date{May 02, 2018}
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -735,6 +735,68 @@ precise effect of each variable on the outcome. Often a combination of
 machine learning and classical regression techniques in these models
 yield the best results.
 
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+words words words
+
+\rowcolors{2}{gray!6}{white}
+\begin{table}[!h]
+
+\caption{\label{tab:Dem_Coeff}Split Incumbent Coefficents}
+\centering
+\begin{tabular}[t]{lrrrr}
+\hiderowcolors
+\toprule
+term & estimate & std.error & statistic & p.value\\
+\midrule
+\showrowcolors
+(Intercept) & 0.494 & 0.033 & 14.863 & 0.000\\
+DemI & -0.041 & 0.057 & -0.722 & 0.482\\
+DPER & 0.047 & 0.019 & 2.421 & 0.030\\
+DUR & -0.028 & 0.016 & -1.714 & 0.109\\
+WAR & 0.035 & 0.039 & 0.899 & 0.384\\
+\addlinespace
+G & -0.008 & 0.002 & -4.402 & 0.001\\
+P & 0.006 & 0.005 & 1.301 & 0.214\\
+Z & -0.007 & 0.004 & -1.849 & 0.086\\
+DemI:G & 0.014 & 0.003 & 5.253 & 0.000\\
+DemI:P & -0.019 & 0.007 & -2.816 & 0.014\\
+DemI:Z & 0.016 & 0.006 & 2.756 & 0.015\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
+
+\rowcolors{2}{gray!6}{white}
+\begin{table}[!h]
+
+\caption{\label{tab:Dem_Vif}Variance Inflation Factors for Split Incumbent}
+\centering
+\begin{tabular}[t]{lr}
+\hiderowcolors
+\toprule
+regressor & VIF\\
+\midrule
+\showrowcolors
+DemI & 22.100\\
+DPER & 6.458\\
+DUR & 5.649\\
+WAR & 4.438\\
+G & 2.583\\
+\addlinespace
+P & 2.883\\
+Z & 3.780\\
+DemI:G & 2.978\\
+DemI:P & 4.349\\
+DemI:Z & 10.320\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
+
+words words words
+
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
@@ -835,6 +897,60 @@ F Statistic & \multicolumn{1}{c}{1.295 (df = 7; 17)} & \multicolumn{1}{c}{11.608
 \textit{Notes:} & \multicolumn{4}{l}{$^{***}$Significant at the 1 percent level.} \\ 
  & \multicolumn{4}{l}{$^{**}$Significant at the 5 percent level.} \\ 
  & \multicolumn{4}{l}{$^{*}$Significant at the 10 percent level.} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{Regression Results} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+\\[-1.8ex] & \multicolumn{1}{c}{actualVP} \\ 
+ & \multicolumn{1}{c}{Split Incumbent} \\ 
+\hline \\[-1.8ex] 
+ DemI & -0.041 \\ 
+  & (0.057) \\ 
+  & \\ 
+ DPER & 0.047^{**} \\ 
+  & (0.019) \\ 
+  & \\ 
+ DUR & -0.028 \\ 
+  & (0.016) \\ 
+  & \\ 
+ WAR & 0.035 \\ 
+  & (0.039) \\ 
+  & \\ 
+ G & -0.008^{***} \\ 
+  & (0.002) \\ 
+  & \\ 
+ P & 0.006 \\ 
+  & (0.005) \\ 
+  & \\ 
+ Z & -0.007^{*} \\ 
+  & (0.004) \\ 
+  & \\ 
+ DemI:G & 0.014^{***} \\ 
+  & (0.003) \\ 
+  & \\ 
+ DemI:P & -0.019^{**} \\ 
+  & (0.007) \\ 
+  & \\ 
+ DemI:Z & 0.016^{**} \\ 
+  & (0.006) \\ 
+  & \\ 
+ Constant & 0.494^{***} \\ 
+  & (0.033) \\ 
+  & \\ 
+Observations & \multicolumn{1}{c}{25} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.892} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.815} \\ 
+Residual Std. Error & \multicolumn{1}{c}{0.030 (df = 14)} \\ 
+F Statistic & \multicolumn{1}{c}{11.608$^{***}$ (df = 10; 14)} \\ 
+\hline \\[-1.8ex] 
+\textit{Notes:} & \multicolumn{1}{l}{$^{***}$Significant at the 1 percent level.} \\ 
+ & \multicolumn{1}{l}{$^{**}$Significant at the 5 percent level.} \\ 
+ & \multicolumn{1}{l}{$^{*}$Significant at the 10 percent level.} \\ 
 \end{tabular} 
 \end{table}
 

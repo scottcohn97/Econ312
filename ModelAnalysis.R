@@ -288,3 +288,4 @@ I_Recode$RepI[I_Recode$I != "-1"] <- 0
 
 
 model_DemI <- lm(actualVP ~ DemI + DPER + DUR + WAR + G*DemI + P*DemI + Z*DemI, data = I_Recode)
+fair_model <- lm(actualVP ~ I + DPER + DUR + WAR + G:I + P:I + Z:I, data= explore_data)

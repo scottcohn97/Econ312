@@ -1,4 +1,4 @@
-data	ModelData	read_excel	D_Outcome	WorkSet	names	inner_join	data.frame	lapply	as.numeric	as.character	x	VP	actualVP	explore_data	c
+data	ModelData	read_excel	D_Outcome	WorkSet	names	inner_join	data.frame	lapply	as.numeric	as.character	x	VP	actualVP	explore_data	c	I_Recode	DemI	RepI	I	model_DemI	lm	DPER	DUR	WAR	G	P	Z
 Fair Data	kable	explore_data	T	%>%	kable_styling	c
 Fair Coeff	simple_model_Fair	lm	actualVP	I	DPER	DUR	WAR	G	P	Z	explore_data	kable	tidy	T	%>%	kable_styling	c
 Fair VS Actual	FairVersusActual	read_excel	kable	T	%>%	kable_styling	c
@@ -9,3 +9,6 @@ unnamed-chunk-2	Fair_NoWar	lm	actualVP	I	DPER	DUR	G	P	Z	explore_data	war_anova	a
 RegTables	
 unnamed-chunk-3	Fair2014Forecast	read_excel	kable	T	%>%	kable_styling	c	Forecast2020
 unnamed-chunk-4	library	ggthemes	Fair_Actual_Graph	ggplot	FairVersusActual	aes	Year	geom_line	Fair_Prediction	Actual_Vote_Share	Error	ggtitle	xlab	ylab
+RegTables_Split	
+Dem_Coeff	kable	tidy	model_DemI	T	%>%	kable_styling	c
+Dem_Vif	Dem_vif	tidy	vif	model_DemI	kable	T	c	%>%	kable_styling

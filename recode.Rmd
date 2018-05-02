@@ -1,0 +1,91 @@
+---
+title: "recode"
+author: "Scott"
+date: "5/2/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+library(stargazer)
+library(texreg)
+library(ggplot2)
+library(ggthemes)
+library(tidyverse)
+library(summarytools)
+library(broom)
+library(readxl)
+library(kableExtra)
+library(car)
+library(plotly)
+library(lmtest)
+opts_chunk$set(echo=FALSE,
+               cache=TRUE, autodep=TRUE, cache.comments=FALSE, fig.pos= "h",
+               message=FALSE, warning=FALSE)
+knitr::read_chunk("/Users/scottcohn/Documents/GitHub/R/PresModels/ModelAnalysis.R")
+```
+```{r data, message=FALSE, warning=FALSE, cache=TRUE, include=FALSE}
+# Import
+
+ModelData <- readxl::read_excel("data.xlsx")
+D_Outcome <- readxl::read_excel("data.xlsx", sheet = "Actual Value")
+
+# Trim and Clean
+WorkSet <- ModelData[11:35, 1:10]
+#WorkSet <- WorkSet[, -WorkSet$rfpred]
+names(WorkSet)[names(WorkSet) == 't'] <- 'Year'
+
+
+dplyr::inner_join(WorkSet, D_Outcome, by = "Year")
+
+WorkSet <-
+  data.frame(lapply(WorkSet, function(x)
+    as.numeric(as.character(x))))
+
+# Convert VP and actualVP to percentages
+WorkSet$VP <- (WorkSet$VP / 100)
+WorkSet$actualVP <- (WorkSet$actualVP / 100)
+
+explore_data <- WorkSet[ ,c("Year", "actualVP", "I", "DPER", "DUR", "WAR", "G", "P", "Z")]
+
+I_Recode <- explore_data
+I_Recode$DemI <- NA
+I_Recode$RepI <- NA
+I_Recode$DemI[I_Recode$I == "1"] <- 1
+I_Recode$DemI[I_Recode$I != "1"] <- 0
+I_Recode$RepI[I_Recode$I == "-1"] <- 1
+I_Recode$RepI[I_Recode$I != "-1"] <- 0
+```
+
+```{r}
+model_DemI <- lm(actualVP ~ DemI + DPER + DUR + WAR + G*DemI + P*DemI + Z*DemI, data = I_Recode)
+fair_model <- lm(actualVP ~ I + DPER + DUR + WAR + G:I + P:I + Z:I, data= explore_data)
+```
+
+```{r}
+summary(model_DemI)
+
+summary(fair_model)
+```
+## TESTS
+
+# Multicollinearity
+```{r echo=FALSE}
+vif(model_DemI)
+
+```
+
+# Heteroskedasticity
+```{r echo=FALSE}
+bptest(model_DemI)
+```
+
+# Autocorrelation
+```{r echo=FALSE}
+dwtest(model_DemI)
+```
+
+
+

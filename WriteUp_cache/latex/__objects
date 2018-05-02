@@ -1,4 +1,4 @@
-data	D_Outcome	explore_data	ModelData	WorkSet
+data	D_Outcome	explore_data	I_Recode	model_DemI	ModelData	WorkSet
 Fair Data	
 Fair Coeff	simple_model_Fair
 Fair VS Actual	FairVersusActual
@@ -9,3 +9,6 @@ unnamed-chunk-2	Fair_NoWar	war_anova
 RegTables	
 unnamed-chunk-3	Fair2014Forecast	Forecast2020
 unnamed-chunk-4	Fair_Actual_Graph
+RegTables_Split	
+Dem_Coeff	
+Dem_Vif	Dem_vif
