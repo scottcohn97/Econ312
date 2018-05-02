@@ -1,0 +1,11 @@
+data	D_Outcome	explore_data	ModelData	WorkSet
+Fair Data	
+Fair Coeff	simple_model_Fair
+Fair VS Actual	FairVersusActual
+VIF	tab
+unnamed-chunk-1	
+DurbinWatson	DW
+unnamed-chunk-2	Fair_NoWar	war_anova
+RegTables	
+unnamed-chunk-3	Fair2014Forecast	Forecast2020
+unnamed-chunk-4	Fair_Actual_Graph

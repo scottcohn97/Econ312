@@ -1,0 +1,11 @@
+data	ModelData	read_excel	D_Outcome	WorkSet	names	inner_join	data.frame	lapply	as.numeric	as.character	x	VP	actualVP	explore_data	c
+Fair Data	kable	explore_data	T	%>%	kable_styling	c
+Fair Coeff	simple_model_Fair	lm	actualVP	I	DPER	DUR	WAR	G	P	Z	explore_data	kable	tidy	T	%>%	kable_styling	c
+Fair VS Actual	FairVersusActual	read_excel	kable	T	%>%	kable_styling	c
+VIF	tab	tidy	vif	simple_model_Fair	kable	T	c	%>%	kable_styling
+unnamed-chunk-1	kable	tidy	bptest	simple_model_Fair	T	%>%	kable_styling	c
+DurbinWatson	DW	dwtest	simple_model_Fair	kable	tidy	T	%>%	kable_styling	c
+unnamed-chunk-2	Fair_NoWar	lm	actualVP	I	DPER	DUR	G	P	Z	explore_data	war_anova	anova	simple_model_Fair	kable	tidy	T	%>%	kable_styling	c
+RegTables	
+unnamed-chunk-3	Fair2014Forecast	read_excel	kable	T	%>%	kable_styling	c	Forecast2020
+unnamed-chunk-4	library	ggthemes	Fair_Actual_Graph	ggplot	FairVersusActual	aes	Year	geom_line	Fair_Prediction	Actual_Vote_Share	Error	ggtitle	xlab	ylab
