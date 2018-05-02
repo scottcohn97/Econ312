@@ -427,16 +427,15 @@ Adjustments}\label{model-replication-and-adjustments}}
 \hypertarget{multicollinearity}{%
 \subsubsection{Multicollinearity}\label{multicollinearity}}
 
-Multicollinearity is a high degree of correlation and linear dependency
-among two or more independent variables. While this problem does not
-usually bias estimators, it does inflate the standard errors in related
-independent variables. With inflated standard errors, the test which
-determines whether the coefficient is statistically different from zero
-could result in a failure to reject the null hypothesis of no effect
-from this parameter. This would be a Type II error. In our model, this
-would cause significant problems in trying to forecast. One method of
-detection of multicollinearity is to calculate \emph{Variance Inflation
-Factors} (\emph{VIF}) using the formula below.
+Multicollinearity is a common problem within time series data and
+indicates a high degree of correlation between two or more independent
+variables. When multicollinearity is present, standard errors inflate
+and calculated t-values decrease With deflated \(t\)-values, the
+probability of a Type II error, or the probability of failing to reject
+an incorrect hypothesis, increases, impairing the possibility for
+inference to be made about coefficients. One method of detecting
+multicollinearity is calculating Variation Inflation Factors (\(VIF\))
+using the formula below.
 
 \[VIF_k = \frac{1}{1 - R^2_k}\]
 
@@ -473,16 +472,13 @@ other variables in the model.
 \hypertarget{heteroskedasticity}{%
 \subsubsection{Heteroskedasticity}\label{heteroskedasticity}}
 
-In time series data, there is the possibility that different samples of
-the data have different variabilities than the aggregate sample --- or
-rather, the variance of the errors of our model are correlated and
-non-uniform. Having dissimilar variance of the errors errors is a
-violation of one of the regression assumptions. It would indicate the
-OLS estimators in the model are inefficient because of incorrect
-calculations of the true variance. Here, we can look at the
-\emph{Breusch-Pagan} Test for heteroskedasticity to see whether this is
-a problem. We calculated the robust version of the BP test, where the
-`statistic' is the calculated \(\chi^2\).
+Heteroskedasticity occurs when residual values are different across
+different independent variable values. In a homoskedastic model,
+residuals are of the same magnitude no matter the value of the
+independent variable. With unequal variances, a model displays incorrect
+standard errors, which makes inference impossible. To test for
+heteroskedasticity, we ran a Breusch-Pagan Test (BP Test) at the
+\(0.05\) significance level.
 
 \[\chi^2 = n\times R^2 \sim \chi^2_{(N-1)}\]
 
@@ -503,20 +499,19 @@ statistic & p.value & parameter & method\\
 \end{table}
 \rowcolors{2}{white}{white}
 
-The calculated \emph{p}-value is \(p=0.807\), which implies failure of
-rejection for the null hypothesis of homoskedasticity. In other words,
-these data do not have heteroskedasticity which needs to be addressed in
-the model.
+With a calculated \(p\)-value of \(0.574\), we fail to reject the null
+hypothesis of homoskedasticity for the model. The variance is constant
+throughout all values of our independent variables.
 
 \hypertarget{autocorrelation}{%
 \subsubsection{Autocorrelation}\label{autocorrelation}}
 
-Time Series models, like ours, assume that the errors do not trend over
-time. We tested this assumption using the Durbin-Watson test.
-Autocorrelation in this model is the similiarity between the current
-model iteration and the lagged, or a previous iteration, version of the
-model. Inference with autocorrelation would create standard errors that
-are wrong, while maintaining the unbiasedness of the estimators.
+Autocorrelation occurs in a model when the disturbances influence each
+other over time. With autocorrelation present, standard errors for each
+coefficient are wrong and inference would be incorrect. We utilized the
+Durbin-Watson test to check for autocorrelation within our data. We used
+the d statistic as calculated below and testing it against the null
+hypothesis \(d=2\) at the \(0.05\) significance level.
 
 \[d = \frac{\sum_{t=2}^{T}(e_t-e_{t-1})^2}{\sum_{t=1}^{T}e^2_t}\]
 
@@ -633,15 +628,15 @@ presidential election. The \(G\), \(P\), \(Z\), \(DPER\), \(DUR\), and
 \(I\) variables hold different values than the 2014 Fair forecast and
 are as follow:
 
-The non-economic variables in all three scenarios are fixed. \(I\) = -1
-(Republican party is in power), \(DPER\) = -1 (assuming incumbent
-president will run again), \(DUR\) = 0 (Republican party has been in
-power for only one term), and \(WAR\) = 0. In the ``continued economic
-conditions'' scenario, we inputted the growth rate of per capita GDP
-(\(G\)) as the growth rate experienced at the end of 2017 (2017:3 -
-2017:4) at the annual rate. We did not add anything to the assumptions
-Fair makes when predicting GDP. We make the assumption that his
-predictions are sound, and thus we are excluding discussion on those
+The non-economic variables in all three scenarios are fixed. \(I\) =
+\(-1\) (Republican party is in power), \(DPER\) = \(-1\) (assuming
+incumbent president will run again), \(DUR\) = 0 (Republican party has
+been in power for only one term), and \(WAR\) = 0. In the ``continued
+economic conditions'' scenario, we inputted the growth rate of per
+capita GDP (\(G\)) as the growth rate experienced at the end of 2017
+(2017:3 - 2017:4) at the annual rate. We did not add anything to the
+assumptions Fair makes when predicting GDP. We make the assumption that
+his predictions are sound, and thus we are excluding discussion on those
 formulations from this paper. The value of 1.85 comes from data taken
 from the Federal Reserve Bank of St.~Louis (U.S. Bureau of Economic
 Analysis
@@ -738,7 +733,23 @@ yield the best results.
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
-words words words
+A key restriction to Fair's model resides in the incumbent variable
+(\(I\)). When interpreting the interaction coefficients in front of
+\(G\), \(P\), and \(Z\), an assumption is made that the effect of a one
+unit change in these variables is identical for when \(I\) equals \(1\)
+or \(-1\). Or, a change in economic conditions has the same effect on
+voter preference no matter which party is currently in office. The
+assumption of equal effects can be naive, for the two parties are known
+to have unequal effects on the economy.
+
+To test the validity of the restriction, we ran Fair's model with the
+incumbency variable split into two groups: Democrats and Republicans. To
+satisfy these conditions, we removed \(I\) and replaced it with binary
+variable \(DemI\), which equals \(1\) when a democratic president is in
+office and \(0\) when a Republican president is in office. The split
+allows for two sets of coefficients to be analyzed: one when a Democrat
+is in office and one when a Republican is in office. Below are the
+coefficients and Variation Inflation Factors.
 
 \rowcolors{2}{gray!6}{white}
 \begin{table}[!h]
@@ -794,8 +805,6 @@ DemI:Z & 10.320\\
 \end{tabular}
 \end{table}
 \rowcolors{2}{white}{white}
-
-words words words
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
